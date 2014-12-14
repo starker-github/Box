@@ -1,0 +1,244 @@
+#!/bin/bash
+
+echo "==================== Emacs Lisp ===================
+Emacs Lisp为Lisp方言之一，受到Maclisp的影响很大，但是跟Common Lisp与Scheme有所不同。
+
+* 对最近的一个符号表达式求值(eval-last-sexp)
+	＋快捷键：C-x C-e
+	＋对数字和双引号间字符串求值为它本身
+	＋对一个符号求值返回它的值
+	＋对一个列表求值，执行列表第一个符号所绑定的函数定义
+
+* 单引号'
+	对带单引号的变量求值，返回这个符号本身（它的书写形式）。
+	比如：'hello，求值(C-x C-e)回显区显示hello
+	(+ 1 2)，求值返回“+”函数的结果
+	'(+ 1 2),求值返回(+ 1 2)
+
+* set赋值函数 
+	＋用法：(set 'flowers '(rose violet))
+	＋返回值：(rose violet)
+	＋附带效果：把(rose violet)赋值给符号flowers（或者说符号指向这个列表）
+	＋set函数的两个参数会在其他操作前求值，所以两个参数都需要加单引号，除非你希望它们被求值
+'''
+[tips] 返回值只是回显区的一个打印，有时附带效果才是我们想要的！
+'''
+
+* 特殊表函数setq
+	＋特殊表函数，第一个参数自动带上单引号的set函数
+	＋可以用于给不同变量赋给不同值：(setq trees '(pine fir) herbivores '(gazells antelope))
+'''
+[tips] 特殊表：不以通常的方式对它的参数求值，比如defun, setq, let
+'''
+
+* 特殊表函数defvar
+	＋模板：(defvar 变量　值
+		  \"描述文档\")
+	给一个变量赋值，与setq相似，区别有：
+		＋只能对无值变量赋值，不会改变原来的值
+		＋多了文档字符串，在describe-variable中可以看到
+		＋在文档字符串的第一行前面加星号\"*\"，意味这可以改变变量的值。
+
+* 特殊表函数：defun定义函数
+	＋模板：(defun 函数名 (参数)
+		 "说明" (使函数成为交互函数的表达式)
+		 函数主体)
+	＋其中参数可以为空()，说明和交互表达式是可选的。
+	＋对这个函数进行求值后就安装上了这个函数
+
+* 交互函数
+	＋用户键入“M-x 函数名”或者相应的绑定键序列都可以激活一个交互函数
+	＋在函数文档后面添加一个特殊表interacitve开始的列表就可以使一个函数变为交互函数。
+
+* interactive参数
+	＋交互函数没有参数，interactive也不需要参数。
+	＋“p”：数字前缓参量，比如：C-u加上一个数字，将这个数字作为参量传给交互函数
+	＋“r”：位点所在区域的开始与结束作为交互函数的两个参量
+	＋“b”：缓冲区名作为参量，“b”后面可以跟字符串，显示到回显区中，以提醒用户
+	＋“B”：与“b”相似，都是以缓冲区名作为参量，但是“b”需要一个存在的缓冲区，“B”可以传送一个不存在的缓冲区。
+	＋“c”：字符作为参量，后面的字符串显示到回显区，产生一个提示
+	＋“f”：一个已存在文件名
+	＋“*”：用于缓冲区是一个只读缓冲区时，当个函数在一个只读缓冲区调用时，将发出警告。注意：星号控制符无需接“\n”来分隔不同参量。
+	＋如果想传递更多参数，在interactive中增加相应内容即可。在字符串中，两个部分以“\n”分割。根据定义的顺序传给函数每一个参量。
+
+* 特殊表函数：let
+	＋模板：(let varlist body)
+		- varlist：变量列表，每一个元素是一个符号或者一个第一个元素为符号的两元素列表。如果是一个符号，这个符号被赋值为nil；
+			　 如果是列表，第一元素（符号）被绑定到第二个元素求值后的返回值
+		- body：let表达式主体，由一个或多个列表组成，注意整个body不用是一个列表
+	＋例子：(let ((birch 3)
+		      pine
+		      fir
+		      (oak 'some))
+		    pine
+		    (message \"%d, %s, %s, %s\" birch pine fir oak))
+		回显：\"3, nil, nil, some\"
+	＋变量只在let表达式中生效
+
+* 特殊表函数：let*
+	let*表达式与let区别在于变量列表中后面的变量可以使用前面已经被设置的值。
+
+* 特殊表函数if
+	＋模板：(if (条件)
+		    (条件为真时，求值))
+	＋模板：(if (条件)
+		    (条件为真时，求值)
+		  (条件为假时，求值))
+	＋例子：(if (> 4 5)
+		    (message \"5 > 4\")
+		  (message \"4 < 5\"))
+		((if arg)
+		    (message "arg is non-nil")
+		  (message "arg is nil"))
+
+* while
+	＋模板：(while true-or-false-test
+		  body...)
+
+* cond
+	＋模板：(cond
+		 body...)
+	＋先计算cond表达式中一系列表达中第一个表达式的第一个元素，如果返回nil，则这个表达式其余部分被忽略，下一个表达式被求值。
+	　如果遇到一个表达式不为nil，则这个表达式后续被依次求值。如果没有后续表达式，则测试表达式的值作为结果返回。如果有，则最后一个表达式的值被返回。
+	＋例子：(cond ((<= number 0) 0)
+		      ((= number 1) 1)
+		      ((> number 1) (+ number 1)))
+
+* 特殊表函数save-excursion
+	＋用于避免位点和标记的不必要移动，在执行玩函数体后，如果位点和标记点发生改变就恢复会原来的值。
+	＋模板：(save-excursion
+		  body...)
+		- body：表达式主体，由一个或多个列表组成
+	＋常出现在let中：(let (varlist)
+			   (save-excursion
+			     (body...)))
+
+* 特殊表函数or
+	＋模板：(or (参量０) (参量１) (参量２))
+	＋逐一对每个参量进行求值，返回第一个值为non-nil，并且函数立刻返回，之后的函数不会执行。
+
+* 特殊表函数and
+	＋逐一对每个参量进行求值，如果任一参量的值为nil，函数立刻返回，之后的函数不会执行。否则返回最后一个参量的值
+
+* &optional
+	可选参量
+
+* prefix-numeric-value
+	＋模板：(prefix-numeric-value arg)
+	＋将一个“未加工的前缀参量”（raw prefix argument，一个列表中的一个数）转换为一个数值，常用于函数参量传给函数的值（interactive \"p\"）要用做数学运算时。
+
+* 文档字符串中的“\”符号
+	＋例子："\\\(goto-char \(point\)\) is faster"
+	＋在文档字符串中，表达式的第一个括号前有一个“\”符号，表示告诉Lisp解释器将这个表达式作为文档打印出来，而不对它求值
+
+* 列表操作函数
+	＋car：返回列表第一个元素，不改变原列表，注意返回的是元素的地址，而不是元素的副本！（类似于指针的理解）
+	＋cdr：返回列表第二个和之后的所有元素，不改变原列表
+	＋cons：构造列表
+		eg. (cons 'pine '(fir oak maple)) 生成(pine fir oak maple)
+		eg. (cons '(pine fir) '(oak maple)) 生成((pine fir) oak maple)
+		    FIXME: cons函数会把地一个参量作为一个元素插入第二个参量中
+	＋append：把两个列表连接起来
+		eg. (append '(pine fir) '(oak maple))生成(pine fir oak maple)
+	＋length：查询列表长度
+	＋nthcdr：执行多次'cdr
+		eg. (nthcdr 2 '(pine fir oak maple)) 生成(oak maple)
+	＋setcar,setcdr：替换原列表第一元素，替换原列表第二个及之后的元素
+		eg. (setq animals '(giraffe antelope tiger lion))
+		    (setcar animals 'hippopotamus)
+		    生成animals = (hippopotamus antelope tiger lion)
+		eg. (setq animals '(giraffe antelope tiger lion))
+		    (setcdr animals '(hippopotamus cat))
+		    生成animals = (giraffe hippopotamus cat)
+		eg. (setq x1 '(a b c)) => (a b c)
+		    (setq x2 (cons 'z (cdr x1))) => (z b c)
+		    === x1 => (a b c)
+		    === x2 => (z b c)
+		    (setcar x1 'foo) => foo
+		    === x1 => (a foo c)
+		    === x2 => (z foo c)
+
+* list
+	emacs lisp的列表是由一系列成对的指针组成：car和cdr。
+	car指向一个原子或者另一个列表，cdr指向下个指针对或nil。
+	eg. (setq x1 '(a b))
+	         --- ---         --- ---
+	x1 --->	|car|cdr| ----> |car|cdr| ---> nil
+	         --- ---         --- ---
+	          |               |
+	           --> a           --> b
+
+* 字符串操作
+	＋concat：连接两个字符串
+		eg. (concat \"hello\" \" world\") => hello world
+
+* zap-to-char：剪切当前位置与出现指定字符的文本区域
+	＋剪切包含指定字符
+\`\`\`
+(defun zap-to-char (arg char)
+  \"Kill up to and include ARG'th occurrence of CHAR.
+Gose backward if ARG is negative; error if CHAR not found.\"
+  (interactive \"*p\ncZap to char: \")
+  (kill-region (point)
+                (progn
+                  (search-forward
+                    (char-to-string char) nil nil arg)
+                  (point))))
+\`\`\`
+		- interactive：只读缓冲区报错，数字参量，字符参量
+		- point：光标所在位置
+		- progn：对每个参量逐一求值，返回最后一个参量的值
+		- search-forward：(search-forward 要查找的字符串　查找的限制范围　查询失败的处理方法　待查字符串出现的次数)
+			* 失败处理方法：nil（如果失败发出一个出错信号）
+					t（如果失败返回nil）
+		- char-to-string：字符转字符串
+	＋剪切不包含指定字符
+\`\`\`
+(defun zap-to-char (arg char)
+  \"Kill up to and include ARG'th occurrence of CHAR.
+Gose backward if ARG is negative; error if CHAR not found.\"
+  (interactive \"*p\ncZap to char: \")
+  (kill-region (point)
+                (if (search-forward (char-to-string char) nil t arg)
+                  (progn (goto-char
+                           (if (> arg 0) (1- (point)) (1+ (point))))
+                         (point))
+                  (if (> arg 0)
+                      (point-max)
+                    (point-min)))))
+\`\`\`
+		- goto-char：移动到arg位置
+		- 1-, 1+：参量减1，参量加1
+		- point-max, pointmin：缓冲区最大位置，缓冲区最小位置
+
+* prog1
+	与progn相似，不同之处在于prog1依次对它的参量求值并将地一个参量的值作为整个表达式的返回值，progn是最后一个参量。
+
+* eq, equal区别
+	＋eq：可以比较object和整数。两个整形值相同返回t，两个object是同一个object返回t。
+	      比较object时比较的是地址，就是说即使相同内容的object，也是不相等的。
+		- (eq 'foo 'foo) => t
+		- (eq 123 123) => t
+		- (eq \"abc\" \"abc\") = nil
+		- (eq 1.0 1.0) => nil
+	＋equal：与eq最大的区别就是比较object时，比较的是内容；还有就是能比较float数。
+		- (equal 'foo 'foo) => t
+		- (equal 123 123) => t
+		- (equal \"abc\" \"abc\") = t
+		- (equal 1.0 1.0) => t
+
+* delq, delete
+	+ delq: 使用'eq'比较，删除list中相同的项
+	+ delete: 使用'equal'比较，删除list中相同的项
+
+
+* format
+	以指定格式返回字符串
+	eg. (format "%s" list)
+
+
+* sit-for
+	重绘屏幕(perform redisplay)，等待用户输入，超时返回t。
+	模型：(sit-for SECONDS &optional NODISP)
+	经常用在函数中，使emacs显示函数执行过程中得到的图形，否则emacs只会在函数结束后才将图形显示出来。
+"

@@ -1,0 +1,40 @@
+#!/bin/bash
+echo "
+* git diff 忽略file mode
+	git config --add core.filemode false
+
+* 打包
+	git archive --format=tar --prefix=uboot/ HEAD --output=uboot.tar.bz2"
+
+echo "
+* push kernel
+	git push ssh://192.168.1.26:29418/android/kernel/kernel-3.0.8 HEAD:refs/for/ing-jz4780
+			remote server			 local repository : remote resitory branch"
+
+echo "
+* 一个文件部分提交
+	git add -p
+	用法可参见git add --help"
+
+echo "
+* pull 其它分支
+	git fetch origin ing-jz4780"
+
+echo "
+* 显示文件
+	git log --name-status
+	git log --name-only"
+
+echo "
+* 显示某个人的提交
+	git log --author=\"Jiang Tao\""
+
+echo "
+* ~/.ssh/config 文件内容
+	host 192.168.1.26
+	user tjiang
+		identityfile ~/.ssh/id_rsa
+
+	host 192.168.10.48
+		user tjiang
+		identityfile ~/.ssh/id_rsa"

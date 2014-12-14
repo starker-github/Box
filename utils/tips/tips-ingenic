@@ -1,0 +1,34 @@
+#!/bin/bash
+
+echo "
+* 启动adbd
+	./adbd&
+	echo 'adb,mass_storage' > /sys/class/android_usb/android0/functions 
+	echo 1 > /sys/class/android_usb/android0/enable"
+
+echo \
+"* android gadget
+	echo mass_storage > /sys/class/android_usb/android0/functions
+	echo /dev/nddata > /sys/devices/platform/jz4780-dwc2/dwc2/gadget/lun0/file 
+	echo 1 > /sys/class/android_usb/android0/enable
+"
+echo \
+"* 设置IP
+	ifconfig eth0 192.168.2.24"
+
+echo \
+"* 设置网关
+	 route add default gw 192.168.2.1"
+
+echo \
+"* 设置DNS
+	 vim /etc/resolv.conf"
+
+echo \
+"* 网络相关设置
+	- ifconfig wlan0 up
+	- wpa_supplicant -B -D wext -i wlan0 -c /etc/wpa_supplicant.conf
+	- ifconfig wlan0 10.10.30.156 netmask 255.255.255.0 up
+	- route add default gw 10.10.30.1
+	- ping 10.10.30.1
+	- ping 8.8.8.8"

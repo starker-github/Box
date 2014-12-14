@@ -1,0 +1,94 @@
+#!/bin/bash
+
+echo \
+"* 终端打开图形化文件夹
+	nautilus [path]
+
+* xargs -i -I使用
+	+ 用于传递参数，常于find命令配合使用，与find -exec最大的优势在于但有些系统对能够传递给exec的命令长度有限制，而xargs命令每次只获取一部分文件而不是全部
+	+ xargs默认把find的输出作为下一个命令的最后一个参数，但是某些情况我们希望作为其他位置的参数，比如cp,mv
+	+ find . -name "*.log" | xargs -i mv {} test4
+	+ find . -name "*.log" | xargs -I {} mv {} test4
+	+ -i: 直接用 {}就能代替管道之前的标准输出的内容
+	+ -I: 需要事先指定替换字符
+"
+
+echo \
+"* find -name '*.c' | while read line; do ls -l $line; done
+	+ read 是一条命令，作用是从标准输入(stdin)读取用户输入的一行文本，并存入变量中
+	+ 把找的每个文件存入$line，然后对每个文件进行操作
+"
+
+echo \
+"* 从.c .h中搜索字符串
+	find . -type f \( -name '*.c' -o '*.h' \) -print0 | xargs -0 grep --color -n "$@"
+	+ \(与-name之间要后空格，\)也一样, 圆括号表示表达式的结合
+	+ \表示引用，即指示 shell 不对后面的字符作特殊解释，而留给 find 命令去解释其意义。
+	+ -o 等价于 || 是做或运算的意思，并且是短路求值
+	+ grep -n 显示行号
+
+* 避开某个文件搜索
+	find /apps -path "/apps/bin" -prune -o -print0 | xargs ....
+	+ 在/apps中搜索并避开/apps/bin
+	+ -prune 在-path "/apps/bin"成立时返回真，此时由于短路运算-o后面的语句不会执行，即不会进行搜索
+"
+
+echo \
+"* echo
+	+ -n: 不换行
+	+ -e: 支持转义字符, echo -e \"\tabc\n\"
+"
+
+echo \
+"* 调整xargs传递参数的位置
+	git st | awk '{print \$2}' | xargs -i cp -a {} /media/E722-242E/new/
+"
+
+echo \
+"* 通过inode删除文件
+	ls -i *
+	find . -inum 19715369 -exec rm {} \;
+	find . -inum 19715369 -exec mv {} newname\;
+"
+
+echo \
+"* patch
+	diff -ruaN --exclude=.svn/ /source/01boot/u-boot-1.1.6/ [old] /u-boot/ [new] > u-boot.patch
+					old				new
+"
+
+echo \
+"* tar 不包含.svn文件夹
+	tar --exclude=.svn -hcvjf boot.tar.bz2 tmp/
+"
+
+echo \
+"* make hole
+	dd bs=1024 count=8 if=/dev/zero of=hole
+* 100k之后开始备份200k
+	dd if=<src> of=<dst> bs=1k skip=100 count=200
+* 恢复上面的备份
+	dd if=<src> of=<dst> bs=1k seek=100
+"
+
+echo \
+"* 以固定格式输出
+	od -A x -t x4 -v -w4 ./u-boot-paladin.bin  | awk '{print \$2; print \$3; print \$4; print \$5}' > u-boot-paladin.txt
+	od -Ax -w4 -t x4 -v <file> | awk '(NF==2) {print \$2}' > uboot-paladin.txt
+"
+
+echo \
+"* 通过sed删除替换字符串
+	sed -i '/.*\(DDR_BASIC_TESTS\).*/d' include/config.h
+	sed -i \"s/oldString/newString/g\"  \`grep oldString -rl /path\`
+"
+
+echo \
+"* dos => unix
+	sed -e 's/.$//' mydos.txt > myunix.txt
+"
+
+echo \
+"* 输出到剪贴板
+	pwd | xclip -sel clip
+"

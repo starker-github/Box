@@ -1,0 +1,12 @@
+[user]
+	name = Jiang Tao
+	email = tao.jiang@ingenic.cn
+[color]
+	ui = true
+[alias]
+	st = status --s
+	br = branch
+	co = checkout
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+[core]
+	editor = vim

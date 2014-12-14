@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]; then
+	echo "Usage: upload <file> [remote directory]"
+	exit 1
+elif [ $# -gt 2 ]; then
+	echo "Usage: upload <file> [remote directory]"
+	exit 2
+fi
+
+if [ $# -eq 1 ]; then
+	curl -O tftp://192.168.2.163/$1
+else
+	curl -O tftp://192.168.2.163/$2/$1
+fi
+
+

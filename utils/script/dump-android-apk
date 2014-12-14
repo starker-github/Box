@@ -1,0 +1,13 @@
+#!/bin/sh
+if [ $# -lt 1 ]; then
+        echo "Usage: dumpapk <file> "
+        exit 1
+elif [ $# -gt 2 ]; then
+        echo "Usage: dumpapk <file> "
+        exit 2
+fi
+
+unzip $1
+dex2jar.sh classes.dex 
+jd-gui classes_dex2jar.jar
+

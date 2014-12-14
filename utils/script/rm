@@ -1,0 +1,130 @@
+#!/bin/bash
+
+REAL_RM_BIN="/bin/rm"
+
+if [ "$#" -eq 0 ]; then
+	# needs at least one command-line argument
+	# we exec /bin/rm with no argument to let it report errors
+	$REAL_RM_BIN
+	exit  # exit with /bin/rm's return value
+fi
+
+ORIG_ARGS=$(getopt -o rfi -- "$@")
+eval set -- "$ORIG_ARGS"
+
+PP_ARG=$(ps -p $PPID -o args=)
+
+#echo $REAL_RM_BIN $@ >log
+#echo "$PP_ARG"
+
+# if bypass rm wrapper or not called directory from terminal, then do not check reserved dirs
+if [ "$BYPASS_RM_WRAPPER" == "yes" ] || [ "$PP_ARG" != "bash" -a "$PP_ARG" != "-bash" ]; then
+	REAL_CMD="$REAL_RM_BIN $ORIG_ARGS"
+	eval "$REAL_CMD"
+	exit
+fi
+
+if false; then
+	CURR_PPID=$PPID
+	TRACE_END=n
+	echo "======caller tree========="
+	while [ "$TRACE_END" == "n" ]; do
+		if [ $CURR_PPID == 1 ]; then
+			TRACE_END=y
+		fi
+		echo "===PPID: $CURR_PPID==="
+		echo -n "args: "
+		echo $(ps -p $CURR_PPID -o args=)
+		CURR_PPID=$(ps -p $CURR_PPID -o ppid=)
+	done
+
+fi
+
+declare -a RESERVED_DIRS
+idx=0
+
+function push_reserved_dirs() {
+	RESERVED_DIRS[idx++]="$1"	
+#	RESERVED_DIRS[idx++]="$1/"	
+}
+
+push_reserved_dirs "android"
+
+#for idx in $(seq 0 $((${#RESERVED_DIRS[@]} - 1))); do
+#	echo ${RESERVED_DIRS[$idx]}
+#done
+
+# eat all options, add -i option we only care files
+ORIG_OPTIONS=""
+while [ $# -gt 0 ]
+do
+	case "$1" in
+		--) shift; break ;; 
+		# WARN: take care of whitespaces here
+		* ) 
+		    ORIG_OPTIONS="$ORIG_OPTIONS $1"
+		    #echo "$1"; 
+		    shift ;;	
+	esac
+done
+
+# force prompt before removal, but only prompt once if rm more than three files
+ORIG_OPTIONS="$ORIG_OPTIONS -i --"
+
+declare -a A_FILENAMES
+fn_idx=0
+
+while [ $# -gt 0 ]; do
+	A_FILENAMES[fn_idx++]="$1"
+	shift
+done
+
+function compose_real_cmd() {
+	REAL_CMD="$REAL_RM_BIN $ORIG_OPTIONS"
+
+	for fn_idx in $(seq 0 $((${#A_FILENAMES[@]} - 1))); do
+		REAL_CMD="$REAL_CMD '${A_FILENAMES[$fn_idx]}'"
+	done
+}
+
+#while [ $# -gt 0 ]; do
+for fn_idx in $(seq 0 $((${#A_FILENAMES[@]} - 1))); do
+	RM_FILENAME=`readlink -f "${A_FILENAMES[$fn_idx]}"`
+	#RM_FILENAME="$1"
+	if git ls-files "$RM_FILENAME" >/dev/null 2>&1; then
+		echo 'ADVICE: seems that one of the to-be-removed files are controlled by GIT,'
+		echo '        please use git to remove these files, following are instructions: '
+		if git ls-files "$RM_FILENAME" --error-unmatch >/dev/null 2>&1; then
+			if [ -d "$RM_FILENAME" ]; then
+				echo "            git rm -r '${A_FILENAMES[$fn_idx]}'"
+			else
+				echo "            git rm '${A_FILENAMES[$fn_idx]}'"
+			fi
+		else
+			echo "            git clean -f '${A_FILENAMES[$fn_idx]}'"
+		fi
+		exit 0
+	fi
+	for idx in $(seq 0 $((${#RESERVED_DIRS[@]} - 1))); do
+		#echo ${RESERVED_DIRS[$idx]}
+		compose_real_cmd
+		if grep -q "${RESERVED_DIRS[$idx]}" <<< "$RM_FILENAME"; then
+			echo "WARNING: try to remove a reserved file or directory: $RM_FILENAME"
+			echo "INFO: use \"$REAL_CMD\" to remove this reserved file or directory"
+			exit 1
+		fi
+	done
+	shift
+done
+
+# ok, its safe to execute real rm command
+# we use an intermediate REAL_CMD to deal with whitespaces
+compose_real_cmd
+
+if false; then
+	echo $ORIG_OPTIONS
+	echo $ORIG_ARGS
+	echo $REAL_CMD
+fi
+
+eval "$REAL_CMD"

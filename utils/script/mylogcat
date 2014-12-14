@@ -1,0 +1,15 @@
+#!/bin/sh
+if [ "$1" = "-h" ]; then
+	echo 'usage: adb logcat $TAG:$PRI | grep --color=auto -i $TAG'
+else
+if [ $# -eq 1 ]; then
+	echo 'adb logcat *:'$1
+	adb logcat *:$1
+elif [ $# -eq 2 ]; then
+	echo 'adb logcat *:'$1' | grep --color=auto -i '$2
+	adb logcat *:$1 | grep --color=auto -i $2
+else
+	echo 'adb logcat'
+	adb logcat
+fi
+fi

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "
+* 替换当前缓冲区
+　　C-x C-v
+"
+
+echo "
+* 在当前缓冲区追加另一个文件
+　　C-x i
+"
+
+echo "
+* 操作前面的word
+　　M--<oper>
+"

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]; then
+	echo "Usage: upload <file> [remote directory] [-g]"
+	exit 1
+elif [ $# -gt 3 ]; then
+	echo "Usage: upload <file> [remote directory] [-g]"
+	exit 2
+fi
+
+UIMAGE=$(basename $1)
+SUBPATH=$2
+OLD_2=$2
+
+if [ x"$3" != "x-g" ]; then
+	:
+else
+	SUBPATH=$OLD_2
+fi
+
+if [ $# -eq 1 ]; then
+	curl -T $1 tftp://192.168.2.165/
+else
+	curl -T $1 tftp://192.168.2.165/$SUBPATH/
+fi
+
+

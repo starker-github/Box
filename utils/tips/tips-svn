@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo "
+* tags
+   svn copy svn://192.168.1.22/system/linux/04midware/real/trunk/RealFormatSDK.jz4750
+            svn://192.168.1.22/system/linux/04midware/real/tags/init-SDK-4750
+       -m \"taging for jz4750 optimization version init\"
+
+   svn copy svn://192.168.1.22/system/linux/03midware/mplayer-1.0rc2/trunk
+            svn://192.168.1.22/system/linux/03midware/mplayer-1.0rc2/tags/release-20100401
+       -m \"taging for new version before rewrite IPU codes\""
+
+echo "
+* import
+   svnadmin create /svn/IngenicSVN/system/linux/02os/linux-iriver-2.6.24.3 --fs-type fsfs
+   \"copy authz to linux-iriver-2.6.24.3\"
+   svn import linux-iriver-2.6.24.3 svn://192.168.1.22/system/linux/02os/linux-iriver-2.6.24.3/trunk -m \"init version (20100226)\""
+
+echo "
+* search
+  svn cat -r564 drivers/mmc/host/jzmmc/jz_mmc_msc.c | grep set_cmdat -A 20"
+
+echo "
+* 22 to 26
+  find . -path *.svn/entries | xargs sed -i -e '/svn/s/22/26/'"
+

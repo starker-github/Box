@@ -1,0 +1,63 @@
+#!/bin/bash
+echo "
+* 不加载配置文件启动
+	emacs -q
+
+* 正则表达式搜索
+	isearch-forward-regexp
+* 正则表达式替换
+	replace-regexp
+* printf => serial_puts
+	printf(\"\(.*\) .*= .*, \(.*\)); -> serial_puts(\"\1 = \");serial_put_hex(\2);
+
+* clean whitespace
+	whitespace-cleanup [C-\`]
+
+* push mark
+	C-@(C-])
+* pop mark
+	C-u C-@(C-])
+
+* 进入递归递归编辑
+	在query-replace中，按下C-r, mode line中文件名两边会出现一组[]
+* 退出递归编辑
+	按下ESC C-c
+
+* ibuffer filter
+	+ /n：创建一个根据名字的filter
+	+ /m：创建一个根据mode的filter
+	+ /p：去掉一层过滤
+	+ //：去掉全部过滤
+
+* 把全部制表符换为空格
+	untabify
+* 把3个及以上的空格转换为制表符
+	tabify
+
+* 使用缓冲区中的数据作为命令的输入
+	+ 选定一块区域
+	+ 按下\"M-|\"(shell-command-on-region)
+	+ 输入希望执行的命令，比如：sort -k 4,4r
+
+* 单词大写
+	M-u
+* 单词小写
+	M-l
+
+* 阅读一个函数和变量的文档
+	C-h f和C-h v
+
+* 移动n次窗口
+	ESC n C-x o
+
+* 进入图形模式
+	M-x edit-picture
+* 八个方向
+	+ 上：C-c ^
+	+ 下：C-c .
+	+ 左：C-c <
+	+ 右：C-c >
+	+ 左上：C-c \`
+	+ 左下：C-c \\
+	+ 右上：C-c '
+	+ 右下：C-c /"

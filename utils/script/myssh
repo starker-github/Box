@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ "$1" = "2" ]; then
+	ssh tjiang@192.168.2.2 -X
+elif [ "$1" = "56" ]; then
+	ssh tjiang@192.168.3.56 -X
+else
+	echo "Please select 2 or 56!"
+fi

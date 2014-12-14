@@ -1,0 +1,30 @@
+#!/bin/sh
+
+if [ $# -eq 1 ]; then
+    SRC=$1
+    DST=`pwd`
+
+    cd $SRC
+    for i in `find . -print | sed 's:^\.$::' | sed 's: :!@!:g'`; do
+	FILE=`echo $i | sed 's:!@!: :g'`;
+	if [ -d $SRC/"$FILE" ]; then
+	    if [ ! -d $DST/"$FILE" ]; then
+		echo "mkdir -p $DST/$FILE"
+		mkdir -p $DST/"$FILE"
+	    fi
+	else
+	    if [ ! -f $DST/"$FILE" ]; then
+	        cp $SRC/"$FILE" $DST/"$FILE"
+	        chmod u+w $DST/"$FILE"
+	    fi
+	fi
+    done
+
+    cd $DST
+    unset SRC DST
+
+else
+    echo "Usage: $0 source-pathname"
+    echo "For example:"
+    echo "    $0 /home/develop/source/02os/linux-2.4.2"
+fi
