@@ -1,14 +1,16 @@
 #!/bin/bash
 
-if [ "$1" = "10" ]; then
-sudo route delete default
-sudo route add default gw 10.10.30.1
-sudo route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.2.1
-elif [ "$1" = "4" ]; then
-sudo route delete default
-sudo route add default gw 10.4.30.1
-sudo route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.2.1
-else
-	echo "Please select 10 or 4!"
+if [ $# -lt 1 ]; then
+        echo "Usage:    wifigateway.sh <device, such as wlan0>"
+        exit
 fi
 
+IP=`ifconfig $1 | sed -n 's/inet \S*:\([^ ]*\).*/\1/p'`
+echo $1"'s IP = "$IP
+ROUTE=`echo $IP | sed -n 's/\(.*\)\..*/\1.1/p'`
+echo $1"'s ROUTE = "$ROUTE
+
+sudo route delete default
+sudo route add default gw $ROUTE
+sudo route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.2.1
+exit
