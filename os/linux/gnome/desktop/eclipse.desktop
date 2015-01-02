@@ -1,0 +1,7 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=eclipse
+Exec=/mnt/tao/Utils/adt-bundle-linux-x86_64-20140702/eclipse/eclipse
+Icon=/mnt/tao/Utils/adt-bundle-linux-x86_64-20140702/eclipse/icon.xpm
+Categories=Application;
