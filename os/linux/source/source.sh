@@ -7,11 +7,16 @@ if [ -n "$WINDOWID" ]; then
 fi
 
 # some more ls aliases
+alias t='tmux'
 alias e='emacs&'
-alias i='cd /mnt/tao/Documents/Z_Workspace/Ingenic'
-alias a='cd /mnt/tao/Documents/Z_Workspace/Ingenic/codes/android'
-alias a41='cd /mnt/tao/Documents/Z_Workspace/Ingenic/codes/android/android-4.1'
-alias l='cd /mnt/tao/Documents/Z_Workspace/Ingenic/codes/linux'
+alias doc='cd /mnt/tao/Documents/'
+alias soc='cd /mnt/tao/Documents/C_SOC'
+alias cus='cd /mnt/tao/Documents/Y_customers'
+alias ingenic='cd /mnt/tao/Documents/Y_customers/A_Ingenic'
+alias os='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os'
+alias l='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/linux'
+alias a='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/android'
+alias a41='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/android/android-4.1'
 
 alias | sed -E "s/^alias ([^=]+)='(.*)'$/alias \1 \2 \$*/g; s/'\\\''/'/g;" > ~/.emacs.d/eshell/alias
 
