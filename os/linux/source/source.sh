@@ -68,3 +68,6 @@ function kgrep() {
 
 # source (git clone https://github.com/rupa/z.git)
 source /mnt/tao/Utils/z.git/z.sh
+
+# add retmux
+export PATH=$PATH:/home/tao/Documents/B_Linux_App/codes/utils/retmux

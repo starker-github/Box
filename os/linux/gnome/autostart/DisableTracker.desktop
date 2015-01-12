@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Disable Tracker-Store
+Comment=Disable Tacker-Store
+Exec=tracker-control -r
+X-GNOME_Autostart-enabled=true

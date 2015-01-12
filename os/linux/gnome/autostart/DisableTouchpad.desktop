@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Disable Touchpad
+Comment=Disable Touchpad
+Exec=/mnt/tao/Box/utils/script/touchpad.sh 0
+X-GNOME_Autostart-enabled=true
