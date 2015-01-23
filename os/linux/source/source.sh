@@ -8,7 +8,7 @@ fi
 
 # some more ls aliases
 alias t='tmux'
-alias e='emacs&'
+alias e='emacs -mm &'
 alias doc='cd /mnt/tao/Documents/'
 alias soc='cd /mnt/tao/Documents/C_SOC'
 alias cus='cd /mnt/tao/Documents/Y_customers'
