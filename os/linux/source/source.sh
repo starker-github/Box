@@ -25,37 +25,46 @@ alias | sed -E "s/^alias ([^=]+)='(.*)'$/alias \1 \2 \$*/g; s/'\\\''/'/g;" > ~/.
 #export CCACHE_DIR=/home/tao/.ccache
 
 # untils
-export PATH=/mnt/tao/Box/utils/bin:$PATH
-export PATH=/mnt/tao/Box/utils/script:$PATH
-export PATH=/mnt/tao/Box/utils/tips:$PATH
-export PATH=/mnt/tao/Box/utils/python:$PATH
+[[ -z $TMUX ]] && export PATH=/mnt/tao/Box/utils/bin:$PATH
+[[ -z $TMUX ]] && export PATH=/mnt/tao/Box/utils/script:$PATH
+[[ -z $TMUX ]] && export PATH=/mnt/tao/Box/utils/tips:$PATH
+[[ -z $TMUX ]] && export PATH=/mnt/tao/Box/utils/python:$PATH
 
 # compiler
-export PATH=$PATH:/mnt/tao/Utils/compiler/android-ndk-r8b
-export PATH=$PATH:/mnt/tao/Utils/compiler/mipsel-linux-android-4.7/bin
-#export PATH=$PATH:/mnt/tao/Utils/compiler/mips-4.3/bin
-export PATH=$PATH:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin
-export PATH=$PATH:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin
+[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/android-ndk-r8b
+[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mipsel-linux-android-4.7/bin
+#[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mips-4.3/bin
+[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin
+#[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin
+#[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin
 
 # jdk
 JAVA_HOME=/mnt/tao/Utils/jdk1.6.0_45
 JRE_HOME=${JAVA_HOME}/jre
-export ANDROID_JAVA_HOME=$JAVA_HOME
-export CLASSPATH=${JAVA_HOME}/lib:${JRE_HOME}/lib:$CLASSPATH
-export JAVA_PATH=${JAVA_HOME}/bin:${JRE_HOME}/bin
-export PATH=$JAVA_PATH:$PATH
+[[ -z $TMUX ]] && export ANDROID_JAVA_HOME=$JAVA_HOME
+[[ -z $TMUX ]] && export CLASSPATH=${JAVA_HOME}/lib:${JRE_HOME}/lib:$CLASSPATH
+[[ -z $TMUX ]] && export JAVA_PATH=${JAVA_HOME}/bin:${JRE_HOME}/bin
+[[ -z $TMUX ]] && export PATH=$JAVA_PATH:$PATH
 
 # a colored prompt
 PS1='\[\e[32;1m\][${debian_chroot:+($debian_chroot)}\u(local)]\[\e[0m\]\[\e[33;1m\]\w\[\e[31;1m\]\n\$ \[\e[0m\]'
 
 # 4.1.2 compiler path
-function 412gcc() {
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips-uclibc-toolchains/bin:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:'`
+function gcc-mips-412() {
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:'`
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:'`
 }
 
-# 4.7.2 compiler path
-function 472gcc() {
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:/mnt/tao/Utils/compiler/mips-uclibc-toolchains/bin:'`
+# 4.7.2 mips32 compiler path
+function gcc-mips32-472() {
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:'`
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:'`
+}
+
+# 4.7.2 mip32r2 compiler path
+function gcc-mips32r2-472() {
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:'`
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:'`
 }
 
 # grep
@@ -70,4 +79,4 @@ function kgrep() {
 source /mnt/tao/Utils/z.git/z.sh
 
 # add retmux
-export PATH=$PATH:/home/tao/Documents/B_Linux_App/codes/utils/retmux
+[[ -z $TMUX ]] && export PATH=$PATH:/home/tao/Documents/B_Linux_App/codes/utils/retmux
