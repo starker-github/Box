@@ -3,7 +3,7 @@
 ORIG_MD5="45adbd143724874d78bd9547359ea01a"
 PATH=/mnt/sdcard
 #PATH=/media/tao/5156-F3DB
-FILE=512M
+FILE=test.bin
 count=0
 
 echo "cp test $PATH/src/$FILE"
@@ -26,6 +26,7 @@ if [ "$TEST_MD5" != "$ORIG_MD5" ]; then
 fi
 
 (( count++ ))
+#let "count=$count+1"
 /bin/rm $PATH/dst/$FILE
 /bin/sync
 echo 3 >/proc/sys/vm/drop_caches

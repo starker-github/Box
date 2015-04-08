@@ -20,6 +20,11 @@ echo \
 "
 
 echo \
+"* 保存文件名
+	cat /dev/null > ../1.txt && find . -type f  -print0 | xargs -0 -i basename {} | while read line;do echo $line >> ../1.txt; done
+"
+
+echo \
 "* 从.c .h中搜索字符串
 	find . -type f \( -name '*.c' -o '*.h' \) -print0 | xargs -0 grep --color -n "$@"
 	+ \(与-name之间要后空格，\)也一样, 圆括号表示表达式的结合
@@ -92,3 +97,4 @@ echo \
 "* 输出到剪贴板
 	pwd | xclip -sel clip
 "
+
