@@ -98,3 +98,8 @@ echo \
 	pwd | xclip -sel clip
 "
 
+
+echo \
+"* 对文件夹中的所有文件按大小排序
+	find . -type f -print0 | xargs -0 du -b | sort -n
+"

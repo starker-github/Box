@@ -2,7 +2,7 @@
 
 ## repo default configuration
 ##
-REPO_URL='http://git.ingenic.cn:8082/gerrit/android/repo.git'
+REPO_URL='http://git1.ingenic.cn:8082/gerrit/android/repo.git'
 REPO_REV='ing_local'
 
 # Copyright (C) 2008 Google Inc.

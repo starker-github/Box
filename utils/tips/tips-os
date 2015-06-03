@@ -42,4 +42,9 @@ echo \
 echo \
 "* 列出所有的库
 	ldconfig -p
+
+* 使用python建立一个局域网的http server
+	Host: python -m SimpleHTTPServer
+	Client：wget http://10.4.50.220:8000/simplehttp.sh
 "
+

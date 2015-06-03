@@ -51,20 +51,22 @@ PS1='\[\e[32;1m\][${debian_chroot:+($debian_chroot)}\u(local)]\[\e[0m\]\[\e[33;1
 
 # 4.1.2 compiler path
 function gcc-mips-412() {
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:'`
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:'`
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:'`
 }
 
 # 4.7.2 mips32 compiler path
 function gcc-mips32-472() {
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:'`
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:'`
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:'`
 }
 
 # 4.7.2 mip32r2 compiler path
 function gcc-mips32r2-472() {
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:'`
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:'`
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:'`
+}
+
+# 4.1.2 nopic compiler path
+function gcc-mips-412-nopic() {
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mipsel-gcc412-glibc236-nopic-fp-20101020/bin:'`
 }
 
 # grep
