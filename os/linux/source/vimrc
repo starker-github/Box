@@ -36,10 +36,9 @@ set wrap
 "colo desert
 colo torte
 
-autocmd BufReadPost *
-\ if line("'\"") > 0 && line("'\"") <= line("$") |
-\   exe "normal! g`\"" |
-\ endif
+"syntax enable
+"colorscheme monokai
+"colorscheme solarized
 
 set stal=2
 
@@ -60,6 +59,8 @@ au BufRead,BufNewFile *.txt setlocal ft=txt
 if has("autocmd")
     autocmd FileType txt setlocal ts=4 sts=4 sw=4 expandtab
 endif
+
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 set  cscopetag
 

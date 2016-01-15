@@ -46,5 +46,8 @@ echo \
 * 使用python建立一个局域网的http server
 	Host: python -m SimpleHTTPServer
 	Client：wget http://10.4.50.220:8000/simplehttp.sh
+
+* 计算slab高速缓存占用的内存空间
+	echo \`cat /proc/slabinfo |awk 'BEGIN{sum=0;}{sum=sum+\$3*\$4;}END{print sum/1024/1024}'\` MB
 "
 

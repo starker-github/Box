@@ -14,14 +14,14 @@ echo \
 "
 
 echo \
-"* find -name '*.c' | while read line; do ls -l $line; done
+"* find -name '*.c' | while read line; do ls -l \$line; done
 	+ read 是一条命令，作用是从标准输入(stdin)读取用户输入的一行文本，并存入变量中
 	+ 把找的每个文件存入$line，然后对每个文件进行操作
 "
 
 echo \
 "* 保存文件名
-	cat /dev/null > ../1.txt && find . -type f  -print0 | xargs -0 -i basename {} | while read line;do echo $line >> ../1.txt; done
+	cat /dev/null > ../1.txt && find . -type f  -print0 | xargs -0 -i basename {} | while read line;do echo \$line >> ../1.txt; done
 "
 
 echo \
@@ -102,4 +102,10 @@ echo \
 echo \
 "* 对文件夹中的所有文件按大小排序
 	find . -type f -print0 | xargs -0 du -b | sort -n
+
+* 对/proc/slabinfo第一列按大小排序
+	cat /proc/slabinfo | sort -n -t ' ' -k2
+
+* 显示文件夹中文件名为数字的文件
+	ls -l | awk '\$9 ~ /^[0-9]+$/{print \$9}'
 "

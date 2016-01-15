@@ -22,8 +22,8 @@ function scandir(){
 			scandir ${cur_dir}/${dirlist}
 			cd ..
 		else
-			echo $ACT ${cur_dir}/${dirlist}
-			$ACT ${cur_dir}/${dirlist}
+			echo $ACT ${cur_dir}/${dirlist} /tmp/
+			$ACT ${cur_dir}/${dirlist} /tmp/
 		fi
 	done
 }

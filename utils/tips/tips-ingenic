@@ -25,10 +25,25 @@ echo \
 	 vim /etc/resolv.conf"
 
 echo \
-"* 网络相关设置
+"
+* 网络相关设置
 	- ifconfig wlan0 up
 	- wpa_supplicant -B -D wext -i wlan0 -c /etc/wpa_supplicant.conf
 	- ifconfig wlan0 10.10.30.156 netmask 255.255.255.0 up
 	- route add default gw 10.10.30.1
 	- ping 10.10.30.1
-	- ping 8.8.8.8"
+	- ping 8.8.8.8
+
+* 获得PC值
+unsigned int pc;
+asm volatile(
+		\"1: la \$1, 1b\n\t\"
+		\"sw \$1, %0\n\t\");
+
+asm volatile(
+		\"jal 1f\n\t\"
+		\"nop\n\t\"
+		\"1:\n\t\"
+		\"move %0, \$31\n\t\"
+		:\"=r\"(pc)::\"\$31\");
+"
