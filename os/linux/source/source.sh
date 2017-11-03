@@ -9,7 +9,7 @@ fi
 
 # some more ls aliases
 alias t='tmux'
-alias e='emacs -mm &'
+alias e='XMODIFIERS="@im=fcitx" QT_IM_MODULE="fcitx" emacs -mm &'
 alias doc='cd /mnt/tao/Documents/'
 alias soc='cd /mnt/tao/Documents/E_SOC'
 alias cus='cd /mnt/tao/Documents/Y_customers'
@@ -34,20 +34,22 @@ alias | sed -E "s/^alias ([^=]+)='(.*)'$/alias \1 \2 \$*/g; s/'\\\''/'/g;" > ~/.
 [[ -z $TMUX ]] && export PATH=/mnt/tao/Box/utils/python:$PATH
 
 # compiler
-[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/android-ndk-r8b
-[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mipsel-linux-android-4.7/bin
+[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mips-gcc520-glibc222/bin
+[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Documents/C_Linux_App/codes/out/gdb-8.0/bin
+#[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/android-ndk-r8b
+#[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mipsel-linux-android-4.7/bin
 #[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mips-4.3/bin
-[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin
+#[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin
 #[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin
 #[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin
 
 # jdk
-JAVA_HOME=/mnt/tao/Utils/jdk1.6.0_45
-JRE_HOME=${JAVA_HOME}/jre
-[[ -z $TMUX ]] && export ANDROID_JAVA_HOME=$JAVA_HOME
-[[ -z $TMUX ]] && export CLASSPATH=${JAVA_HOME}/lib:${JRE_HOME}/lib:$CLASSPATH
-[[ -z $TMUX ]] && export JAVA_PATH=${JAVA_HOME}/bin:${JRE_HOME}/bin
-[[ -z $TMUX ]] && export PATH=$JAVA_PATH:$PATH
+#JAVA_HOME=/mnt/tao/Utils/jdk1.6.0_45
+#JRE_HOME=${JAVA_HOME}/jre
+#[[ -z $TMUX ]] && export ANDROID_JAVA_HOME=$JAVA_HOME
+#[[ -z $TMUX ]] && export CLASSPATH=${JAVA_HOME}/lib:${JRE_HOME}/lib:$CLASSPATH
+#[[ -z $TMUX ]] && export JAVA_PATH=${JAVA_HOME}/bin:${JRE_HOME}/bin
+#[[ -z $TMUX ]] && export PATH=$JAVA_PATH:$PATH
 
 # a colored prompt
 PS1='\[\e[32;1m\][${debian_chroot:+($debian_chroot)}\u(local)]\[\e[0m\]\[\e[33;1m\]\w\[\e[31;1m\]\n\$ \[\e[0m\]'
@@ -78,7 +80,15 @@ source /mnt/tao/Utils/z.git/z.sh
 # add retmux
 [[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Documents/C_Linux_App/codes/utils/retmux
 
+[[ -z $TMUX ]] && PATH=$PATH:/mnt/tao/Downloads/os/linux/packages/apache-maven-3.3.9/bin/
+
 # https://wiki.archlinux.de/title/GNOME#Tipps_und_Tricks
 export NO_AT_BRIDGE=1
 
 export TERM=xterm-256color
+
+complete -W "enp4s0 wlp5s0" wifigateway.sh
+
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"

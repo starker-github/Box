@@ -1,9 +1,7 @@
 #!/bin/bash
 
 echo \
-"* 终端打开图形化文件夹
-	nautilus [path]
-
+"
 * xargs -i -I使用
 	+ 用于传递参数，常于find命令配合使用，与find -exec最大的优势在于但有些系统对能够传递给exec的命令长度有限制，而xargs命令每次只获取一部分文件而不是全部
 	+ xargs默认把find的输出作为下一个命令的最后一个参数，但是某些情况我们希望作为其他位置的参数，比如cp,mv
@@ -78,8 +76,8 @@ echo \
 
 echo \
 "* 以固定格式输出
-	od -A x -t x4 -v -w4 ./u-boot-paladin.bin  | awk '{print \$2; print \$3; print \$4; print \$5}' > u-boot-paladin.txt
-	od -Ax -w4 -t x4 -v <file> | awk '(NF==2) {print \$2}' > uboot-paladin.txt
+	od -A x -t x4 -v -w16 ./u-boot-paladin.bin  | awk '{print \$2; print \$3; print \$4; print \$5}' > u-boot-paladin.txt
+	od -A x -t x4 -v -w4 <file> | awk '(NF==2) {print \$2}' > uboot-paladin.txt
 "
 
 echo \
@@ -94,12 +92,6 @@ echo \
 "
 
 echo \
-"* 输出到剪贴板
-	pwd | xclip -sel clip
-"
-
-
-echo \
 "* 对文件夹中的所有文件按大小排序
 	find . -type f -print0 | xargs -0 du -b | sort -n
 
@@ -108,4 +100,19 @@ echo \
 
 * 显示文件夹中文件名为数字的文件
 	ls -l | awk '\$9 ~ /^[0-9]+$/{print \$9}'
+
+* 终端使用上一条命令
+	+ 上一条所有参数: !*
+	+ 上一条最后一个参数: !$, ALT+.
+	+ 上一条除最后一个参数的不服（包括命令）: !-:
+	+ 上一条任意一部分: !:<num>, ALT+<num>+.
+	+ 上一条命令: !!
+	+ 替换上一条命令的一部部分（替换第一个）: !!:^foo^bar
+	+ 替换上一条命令的一部部分（替换全部）: !!:gs/foo/bar
+
+* 查找空文件夹创建.gitignore
+	find ./ -type d -empty | xargs -I {} touch {}/.gitignore
+
+* zip压缩
+	zip -r -8 canna_core_V1_0_base_V2_3_oss.zip canna_core_V1_0_base_V2_3_oss
 "

@@ -4,7 +4,7 @@ echo "
 	git config --add core.filemode false
 
 * 打包
-	git archive --format=tar --prefix=uboot/ HEAD --output=uboot.tar.bz2"
+	git archive --format=tar.gz --prefix=uboot/ HEAD --output=uboot.tar.gz"
 
 echo "
 * push kernel
@@ -14,7 +14,12 @@ echo "
 echo "
 * 一个文件部分提交
 	git add -p
-	用法可参见git add --help"
+	用法可参见git add --help
+
+* 查看其他分支文件
+	git show <branch>:<file>
+	git show <branch>:<file> > <file>
+"
 
 echo "
 * pull 其它分支

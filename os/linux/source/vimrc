@@ -64,3 +64,6 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 
 set  cscopetag
 
+set cinoptions=:0
+ """""""每行超过100个的字符用下划线标示""""""""
+au BufRead,BufNewFile *.s,*.c,*.cpp,*.h,*.sh,*.py,*.txt,*.md,*.markdown 2match Underlined /.\%101v/

@@ -11,5 +11,6 @@
 #
 # By default this script does nothing.
 
-sh /mnt/tao/Utils/goagent/proxy.sh
+#sh /mnt/tao/Utils/goagent/proxy.sh
+sh /etc/init.d/scrumworks_init.sh start
 exit 0

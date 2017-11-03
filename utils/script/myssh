@@ -1,8 +1,10 @@
 #!/bin/sh
 if [ "$1" = "2" ]; then
 	ssh tjiang@192.168.2.2 -X
-elif [ "$1" = "56" ]; then
-	ssh tjiang@192.168.3.56 -X
+elif [ "$1" = "24" ]; then
+	ssh tao@192.168.2.24 -X
+elif [ "$1" = "aws-ec2-s" ]; then
+	ssh -i ~/.ssh/aws-ubuntu.pem ubuntu@13.124.165.42 -X
 else
-	echo "Please select 2 or 56!"
+	echo "Please select 2, 5 or aws-ec2-s!"
 fi

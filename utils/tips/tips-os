@@ -51,3 +51,29 @@ echo \
 	echo \`cat /proc/slabinfo |awk 'BEGIN{sum=0;}{sum=sum+\$3*\$4;}END{print sum/1024/1024}'\` MB
 "
 
+echo \
+"* 检测全部文件格式
+	myscandir \"/mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/linux/linux.x1000/kernel-3.0.8/scripts/checkpatch.pl -f\" /mnt/tao/Documents/Y_customers/A_Ingenic/codes/projects/mozart/mozart.git/sources/application/mozart/src/mozart/
+"
+
+echo \
+"* 终端打开图形化文件夹
+	nautilus [path]
+	pcmanfm [path]
+
+* 输出到剪贴板
+	pwd | xclip -sel clip
+
+* 制作ramdisk
+	find . | cpio -o -H newc |gzip -9 > ../ramfs.cpio.gz
+
+* mplayer
+	mplayer -ao pcm:nowaveheader:file=welcome.wav -vo null welcome.mp3 -af resample=48000 -channels 2
+	mplayer  -demuxer rawaudio -rawaudio rate=48000:channels=2 welcome.wav
+
+* mask ip
+	route add -net 54.239.21.157 netmask 255.255.255.255 lo
+	route add -net 54.239.23.243 netmask 255.255.255.255 lo
+	route add -net 54.239.25.188 netmask 255.255.255.255 lo
+"
+

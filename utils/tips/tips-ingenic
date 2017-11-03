@@ -46,4 +46,20 @@ asm volatile(
 		\"1:\n\t\"
 		\"move %0, \$31\n\t\"
 		:\"=r\"(pc)::\"\$31\");
+
+* alex
+	- cd /mnt/tao/Documents/G_Tech/amazon/alexa/codes/alexa-avs-sample-app/samples/companionService
+	- npm start
+	- cd /mnt/tao/Documents/G_Tech/amazon/alexa/codes/alexa-avs-sample-app/samples/javaclient
+	- mvn exec:exec
+
+* wl 关闭rts
+	wl ampdu_rts 0
+	wl wme_ac sta be aifsn 2 ecwmin 3 ecwmax 3
+
+* coredump
+	set solib-search-path /mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/rootfs/updater/lib/:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/rootfs/app/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/molib/app/usr/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/molib/updater/usr/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/mozart/app/usr/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/mozart/app/usr/hcilib/
+
+* indent
+	indent -npro -kr -i8 -ts8 -sob -l100 -ss -ncs-cp1
 "
