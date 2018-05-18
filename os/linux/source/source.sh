@@ -14,11 +14,12 @@ alias doc='cd /mnt/tao/Documents/'
 alias soc='cd /mnt/tao/Documents/E_SOC'
 alias cus='cd /mnt/tao/Documents/Y_customers'
 alias ingenic='cd /mnt/tao/Documents/Y_customers/A_Ingenic'
+alias avs='cd /mnt/tao/Documents/A_AVS'
 alias os='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os'
 alias l='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/linux'
 alias a='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/android'
 alias a41='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/android/android-4.1'
-alias cgrep='find . -name .repo -prune -o -name .git -prune -o -type f \( -name "*.c" -o -name "*.h" -o -name "*.cpp" -o -name "Kconfig" -o -name "Makefile" \) -print0 | xargs -0 grep --color -n'
+alias cgrep='find . -name .repo -prune -o -name .git -prune -o -type f \( -name "*.c" -o -name "*.h" -o -name "*.cpp" -o -name "*.cc" -o -name "Kconfig" -o -name "Makefile" \) -print0 | xargs -0 grep --color -n'
 alias myclip='xclip -sel clip'
 
 alias | sed -E "s/^alias ([^=]+)='(.*)'$/alias \1 \2 \$*/g; s/'\\\''/'/g;" > ~/.emacs.d/eshell/alias
@@ -28,14 +29,15 @@ alias | sed -E "s/^alias ([^=]+)='(.*)'$/alias \1 \2 \$*/g; s/'\\\''/'/g;" > ~/.
 #export CCACHE_DIR=/home/tao/.ccache
 
 # untils
+[[ -z $TMUX ]] && export PATH=/mnt/tao/Box/utils/bin/cmd_markdown_linux64:$PATH
 [[ -z $TMUX ]] && export PATH=/mnt/tao/Box/utils/bin:$PATH
 [[ -z $TMUX ]] && export PATH=/mnt/tao/Box/utils/script:$PATH
 [[ -z $TMUX ]] && export PATH=/mnt/tao/Box/utils/tips:$PATH
 [[ -z $TMUX ]] && export PATH=/mnt/tao/Box/utils/python:$PATH
 
 # compiler
-[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mips-gcc520-glibc222/bin
-[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Documents/C_Linux_App/codes/out/gdb-8.0/bin
+[[ -z $TMUX ]] && export PATH=/mnt/tao/Utils/compiler/mips-gcc520-glibc222/bin:$PATH
+[[ -z $TMUX ]] && export PATH=/mnt/tao/Documents/C_Linux_App/codes/out/gdb-8.0/bin:$PATH
 #[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/android-ndk-r8b
 #[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mipsel-linux-android-4.7/bin
 #[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mips-4.3/bin
@@ -54,24 +56,18 @@ alias | sed -E "s/^alias ([^=]+)='(.*)'$/alias \1 \2 \$*/g; s/'\\\''/'/g;" > ~/.
 # a colored prompt
 PS1='\[\e[32;1m\][${debian_chroot:+($debian_chroot)}\u(local)]\[\e[0m\]\[\e[33;1m\]\w\[\e[31;1m\]\n\$ \[\e[0m\]'
 
-# 4.1.2 compiler path
-function gcc-mips-412() {
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mipseltools-gcc412-glibc261/bin:'`
-}
-
 # 4.7.2 mips32 compiler path
 function gcc-mips32-472() {
         export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:'`
 }
 
-# 4.7.2 mip32r2 compiler path
-function gcc-mips32r2-472() {
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:'`
+# 5.2.0 mips32 compiler path
+function gcc-520() {
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mips-gcc520-glibc222/bin:'`
 }
 
-# 4.1.2 nopic compiler path
-function gcc-mips-412-nopic() {
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mipsel-gcc412-glibc236-nopic-fp-20101020/bin:'`
+function gcc-520-ln() {
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mips-gcc520-glibc222-ln/bin:'`
 }
 
 # source (git clone https://github.com/rupa/z.git)
@@ -87,8 +83,22 @@ export NO_AT_BRIDGE=1
 
 export TERM=xterm-256color
 
-complete -W "enp4s0 wlp5s0" wifigateway.sh
+complete -W "enx000ec6a5efbb wlo1" wifigateway.sh
 
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS="@im=fcitx"
+
+function 50_net
+{
+	mkdir -p ~/smb/50_public
+	mkdir -p ~/smb/50_tech
+	sudo mount.cifs //192.168.1.50/public ~/smb/50_public -o password="",uid=1000,gid=100,iocharset=utf8,vers=1.0
+	sudo mount.cifs //192.168.1.50/tech ~/smb/50_tech -o password="",uid=1000,gid=100,iocharset=utf8,vers=1.0
+}
+
+function recover_dns
+{
+	sudo rm /etc/resolv.conf
+	sudo ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+}

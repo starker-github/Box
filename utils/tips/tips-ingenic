@@ -58,7 +58,8 @@ asm volatile(
 	wl wme_ac sta be aifsn 2 ecwmin 3 ecwmax 3
 
 * coredump
-	set solib-search-path /mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/rootfs/updater/lib/:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/rootfs/app/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/molib/app/usr/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/molib/updater/usr/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/mozart/app/usr/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/mozart/app/usr/hcilib/
+	+ set solib-search-path /mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/rootfs/updater/lib/:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/rootfs/app/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/molib/app/usr/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/molib/updater/usr/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/mozart/app/usr/lib:/mnt/tao/Documents/Y_customers/A_Ingenic/project/alexa/codes/repo/mozart/output/mozart/app/usr/hcilib/
+	+ info proc mappings
 
 * indent
 	indent -npro -kr -i8 -ts8 -sob -l100 -ss -ncs-cp1

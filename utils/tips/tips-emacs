@@ -63,4 +63,12 @@ echo "
 	+ 左上：C-c \`
 	+ 左下：C-c \\
 	+ 右上：C-c '
-	+ 右下：C-c /"
+	+ 右下：C-c /
+
+* 画图模式
+	M-x artist-mode
+
+* mulit cursors 自增
+	+ mc/insert-numbers
+	+ C-u xxx mc/insert-numbers
+"

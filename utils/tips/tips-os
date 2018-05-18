@@ -75,5 +75,8 @@ echo \
 	route add -net 54.239.21.157 netmask 255.255.255.255 lo
 	route add -net 54.239.23.243 netmask 255.255.255.255 lo
 	route add -net 54.239.25.188 netmask 255.255.255.255 lo
+
+* 创建用户
+	sudo adduser --home /disk1/users/tjiang/ tjiang
 "
 

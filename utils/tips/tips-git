@@ -42,4 +42,11 @@ echo "
 
 	host 192.168.10.48
 		user tjiang
-		identityfile ~/.ssh/id_rsa"
+		identityfile ~/.ssh/id_rsa
+
+* 查询无用的远程分支
+	git remote prune <os> --dry-run
+
+* 删除无用的远程分支
+	git remote prune <os> Pruning <os>
+"

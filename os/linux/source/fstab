@@ -5,14 +5,19 @@
 # that works even if disks are added and removed. See fstab(5).
 #
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
-# / was on /dev/sdb5 during installation
-UUID=7a93404b-9216-4c17-8e75-9b9f84d6090e /               ext4    errors=remount-ro 0       1
-# /boot was on /dev/sda2 during installation
-UUID=cab32534-5da0-43d0-be67-3dc4aca5f178 /boot           ext4    defaults        0       2
-# /boot/efi was on /dev/sda1 during installation
-UUID=0001-261A  /boot/efi       vfat    defaults        0       1
-# swap was on /dev/sdb4 during installation
-UUID=f3649618-b504-42ea-af16-df1a9b78ea5e none            swap    sw              0       0
-# tao
-UUID=c1bdaa0a-f1a4-4108-aa4a-8392d25caf2f /mnt/tao        ext4    defaults        0       2
+# / was on /dev/nvme0n1p7 during installation
+UUID=ab6381bd-acd1-4f00-aade-19704c2976e2 /               ext4    errors=remount-ro 0       1
+# /boot was on /dev/nvme0n1p5 during installation
+UUID=f5332300-9bd9-4c5f-af84-9461a05894ed /boot           ext4    defaults        0       2
+# /boot/efi was on /dev/nvme0n1p1 during installation
+UUID=6E42-BF02  /boot/efi       vfat    umask=0077      0       1
+# swap was on /dev/sda2 during installation
+UUID=03eb96d9-6ed4-45b8-aaf8-2c41b8aacb25 none            swap    sw              0       0
 
+# tao
+UUID=5d3871c0-1a65-41b6-8d0a-cb9bc366cfdf /mnt/tao        ext4    defaults        0       2
+# data
+UUID=06e90797-061e-4355-9c29-ae68fb64f676 /mnt/data        ext4    defaults        0       2
+# 1.50
+#//192.168.1.50/public /home/tao/smb/public cifs defaults,password="" 0 2
+#//192.168.1.50/tech /home/tao/smb/tech cifs defaults,password="" 0 2

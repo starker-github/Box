@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo "
-* Makefile做与判断
-	ifeq ($(if $(and $(DEVICE_DIR), $(call ifexist,$(DEVICE_DIR)/ota/version.mk)),ota_exist), ota_exist)
+echo \
+"* Makefile做与判断
+	ifeq (\$(if \$(and \$(DEVICE_DIR), \$(call ifexist,\$(DEVICE_DIR)/ota/version.mk)),ota_exist), ota_exist)
 	else
 	endif
 "

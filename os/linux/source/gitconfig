@@ -4,7 +4,7 @@
 [color]
 	ui = true
 [alias]
-	st = status --s
+	st = status -s
 	br = branch
 	co = checkout
 	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
