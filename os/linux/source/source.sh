@@ -15,12 +15,10 @@ alias soc='cd /mnt/tao/Documents/E_SOC'
 alias cus='cd /mnt/tao/Documents/Y_customers'
 alias ingenic='cd /mnt/tao/Documents/Y_customers/A_Ingenic'
 alias avs='cd /mnt/tao/Documents/A_AVS'
-alias os='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os'
-alias l='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/linux'
-alias a='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/android'
-alias a41='cd /mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/android/android-4.1'
 alias cgrep='find . -name .repo -prune -o -name .git -prune -o -type f \( -name "*.c" -o -name "*.h" -o -name "*.cpp" -o -name "*.cc" -o -name "Kconfig" -o -name "Makefile" \) -print0 | xargs -0 grep --color -n'
 alias myclip='xclip -sel clip'
+alias matlab2018a='/usr/local/matlab/matlab2018a/bin/matlab -desktop &'
+alias format-google='clang-format -style="{BasedOnStyle: Google, ColumnLimit: 120, AllowShortFunctionsOnASingleLine: Empty, AllowShortIfStatementsOnASingleLine: false, AllowShortIfStatementsOnASingleLine: false, AllowShortLoopsOnASingleLine: false, DerivePointerAlignment: false, PointerAlignment: Right}" -i'
 
 alias | sed -E "s/^alias ([^=]+)='(.*)'$/alias \1 \2 \$*/g; s/'\\\''/'/g;" > ~/.emacs.d/eshell/alias
 
@@ -38,6 +36,7 @@ alias | sed -E "s/^alias ([^=]+)='(.*)'$/alias \1 \2 \$*/g; s/'\\\''/'/g;" > ~/.
 # compiler
 [[ -z $TMUX ]] && export PATH=/mnt/tao/Utils/compiler/mips-gcc520-glibc222/bin:$PATH
 [[ -z $TMUX ]] && export PATH=/mnt/tao/Documents/C_Linux_App/codes/out/gdb-8.0/bin:$PATH
+[[ -z $TMUX ]] && export PATH=/mnt/tao/Utils/compiler/mipsel-linux-android-4.7/bin:$PATH
 #[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/android-ndk-r8b
 #[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mipsel-linux-android-4.7/bin
 #[[ -z $TMUX ]] && export PATH=$PATH:/mnt/tao/Utils/compiler/mips-4.3/bin
@@ -57,8 +56,8 @@ alias | sed -E "s/^alias ([^=]+)='(.*)'$/alias \1 \2 \$*/g; s/'\\\''/'/g;" > ~/.
 PS1='\[\e[32;1m\][${debian_chroot:+($debian_chroot)}\u(local)]\[\e[0m\]\[\e[33;1m\]\w\[\e[31;1m\]\n\$ \[\e[0m\]'
 
 # 4.7.2 mips32 compiler path
-function gcc-mips32-472() {
-        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mipsel-gcc472-glibc216-mips32/bin:'`
+function gcc-472() {
+        export PATH=`echo $PATH | sed -e 's:/mnt/tao/Utils/compiler/mips\w*-gcc[^:]*/bin:/mnt/tao/Utils/compiler/mips-gcc472-glibc216/bin:'`
 }
 
 # 5.2.0 mips32 compiler path
@@ -83,7 +82,7 @@ export NO_AT_BRIDGE=1
 
 export TERM=xterm-256color
 
-complete -W "enx000ec6a5efbb wlo1" wifigateway.sh
+complete -W "enx00e04c6aae18 wlo1" wifigateway.sh
 
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx

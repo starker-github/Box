@@ -1,46 +1,35 @@
 #!/bin/bash
 
 echo \
-"* 同时使用无线（外网）与有线（内网）
+"
+* 同时使用无线（外网）与有线（内网）
 	sudo route delete default(删除内网网关)
 	sudo route add default gw 10.10.30.1(设置外网网关为默认)
 	sudo route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.2.1(添加192.168.1.0)
-"
 
-echo \
-"* ubuntu 安装 deb
+* ubuntu 安装 deb
 	sudo dpkg -i dropbox_1.4.0_i386.deb
-"
 
-echo \
-"* ZIP文件名乱码的方法
+* ZIP文件名乱码的方法
 	sudo apt-get install unar
 	lsar foo.zip #列出所有文件
 	如果列出的文件名已经正确, unar foo.zip #解压所有文件
 	如果列出的文件名还不正确, lsar -e GB18030 foo.zip #指定使用GB18030编码列出所有文件
 	unar -e GB18030 foo.zip #指定使用GB18030解压所有文件
 	注：GB18030编码文件名的ZIP文件一般由简体中文版Windows产生，对于繁体中文版Windows产生的ZIP文件可以尝试BIG5-HKSCS编码，对其他语种的常见编码不再赘述。
-	    通用的原则是用lsar测试出正确的编码以后，用unar解压.
-"
+	    通用的原则是用lsar测试出正确的编码以后，用unar解压
 
-echo \
-"* 重启udev
+* 重启udev
 	sudo service udev restart
-"
 
-echo \
-"* ssh x-window
+* ssh x-window
 	ssh ...@... -X
 	echo \$DISPLAY
-"
 
-echo \
-"* 查看应用程序所用的库
+* 查看应用程序所用的库
 	ldd <app>
-"
 
-echo \
-"* 列出所有的库
+* 列出所有的库
 	ldconfig -p
 
 * 使用python建立一个局域网的http server
@@ -49,15 +38,8 @@ echo \
 
 * 计算slab高速缓存占用的内存空间
 	echo \`cat /proc/slabinfo |awk 'BEGIN{sum=0;}{sum=sum+\$3*\$4;}END{print sum/1024/1024}'\` MB
-"
 
-echo \
-"* 检测全部文件格式
-	myscandir \"/mnt/tao/Documents/Y_customers/A_Ingenic/codes/os/linux/linux.x1000/kernel-3.0.8/scripts/checkpatch.pl -f\" /mnt/tao/Documents/Y_customers/A_Ingenic/codes/projects/mozart/mozart.git/sources/application/mozart/src/mozart/
-"
-
-echo \
-"* 终端打开图形化文件夹
+* 终端打开图形化文件夹
 	nautilus [path]
 	pcmanfm [path]
 
@@ -70,6 +52,7 @@ echo \
 * mplayer
 	mplayer -ao pcm:nowaveheader:file=welcome.wav -vo null welcome.mp3 -af resample=48000 -channels 2
 	mplayer  -demuxer rawaudio -rawaudio rate=48000:channels=2 welcome.wav
+	mplayer a.rmvb -ao pcm:file=a.wav -vc dummy -vo null -af format=S16le
 
 * mask ip
 	route add -net 54.239.21.157 netmask 255.255.255.255 lo
@@ -78,5 +61,7 @@ echo \
 
 * 创建用户
 	sudo adduser --home /disk1/users/tjiang/ tjiang
-"
 
+* zip压缩
+	zip -r -8 canna_core_V1_0_base_V2_3_oss.zip canna_core_V1_0_base_V2_3_oss
+"

@@ -63,4 +63,9 @@ asm volatile(
 
 * indent
 	indent -npro -kr -i8 -ts8 -sob -l100 -ss -ncs-cp1
+
+* 查看gcc不同优化选项的不同
+	mips-linux-gnu-gcc -Q --help=optimizers > default.txt
+	mips-linux-gnu-gcc -Q --help=optimizers -O0 > O0.txt
+	mips-linux-gnu-gcc -Q --help=optimizers -O2 > O2.txt
 "

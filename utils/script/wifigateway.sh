@@ -5,10 +5,14 @@ if [ $# -lt 1 ]; then
         exit
 fi
 
-IP=`ifconfig $1 | sed -n 's/inet \S*:\(\S*\).*/\1/p'`
+IP=`ifconfig $1 | sed -n 's/inet\s*\([0-9.]*\).*/\1/p'`
 echo $1"'s IP = "$IP
 ROUTE=`echo $IP | sed -n 's/\(.*\)\..*/\1.1/p'`
 echo $1"'s ROUTE = "$ROUTE
+
+if [ x$ROUTE == x ];then
+	exit
+fi
 
 #while [ 1 ];
 #do
@@ -23,9 +27,5 @@ sudo route delete default
 sudo route delete default
 sudo route add default gw $ROUTE
 sudo route add -net 192.168.0.0 netmask 255.255.0.0 gw 192.168.2.1
-#sudo route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.2.1
-#sudo route add -net 192.168.4.0 netmask 255.255.255.0 gw 192.168.2.1
-#sudo route add -net 192.168.9.0 netmask 255.255.255.0 gw 192.168.2.1
-#sudo route add -net 194.169.1.0 netmask 255.255.255.0 gw 192.168.2.1
 sudo route add -net 106.37.171.196 netmask 255.255.255.255 gw 192.168.2.1
 exit

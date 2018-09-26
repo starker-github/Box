@@ -22,8 +22,11 @@ function scandir(){
 			scandir ${cur_dir}/${dirlist}
 			cd ..
 		else
-			echo $ACT ${cur_dir}/${dirlist} /tmp/
-			$ACT ${cur_dir}/${dirlist} /tmp/
+			echo /mnt/tao/Documents/A_AIP/codes/webrtc/build.x86-laiqu/Demo/asp_demo -c /mnt/tao/Documents/A_AIP/codes/webrtc/build.x86-laiqu/JzAsp_mono_dmic.json -n 1 -d 0 -i ${cur_dir}/${dirlist} -o /home/tao/Templates/laiqu/`basename ${cur_dir}/${dirlist} | sed "s/\.wav//"`-ns.wav
+			echo /mnt/tao/Documents/A_AIP/codes/webrtc/webrtc-m/build/webrtc/modules/audio_processing/process_test -agc 1 -i /home/tao/Templates/laiqu/`basename ${cur_dir}/${dirlist} | sed "s/\.wav//"`-ns.wav -o /home/tao/Templates/laiqu/`basename ${cur_dir}/${dirlist} | sed "s/\.wav//"`-res.wav
+
+			/mnt/tao/Documents/A_AIP/codes/webrtc/build.x86-laiqu/Demo/asp_demo -c /mnt/tao/Documents/A_AIP/codes/webrtc/build.x86-laiqu/JzAsp_mono_dmic.json -n 1 -d 0 -i ${cur_dir}/${dirlist} -o /home/tao/Templates/laiqu/`basename ${cur_dir}/${dirlist} | sed "s/\.wav//"`-ns.wav
+			/mnt/tao/Documents/A_AIP/codes/webrtc/webrtc-m/build/webrtc/modules/audio_processing/process_test -agc 1 -i /home/tao/Templates/laiqu/`basename ${cur_dir}/${dirlist} | sed "s/\.wav//"`-ns.wav -o /home/tao/Templates/laiqu/`basename ${cur_dir}/${dirlist} | sed "s/\.wav//"`-res.wav
 		fi
 	done
 }
